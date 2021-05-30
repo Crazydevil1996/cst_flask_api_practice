@@ -17,8 +17,8 @@ class StudentAPI(Resource):
     def post(self):
         body = request.get_json()
         student = Students(**body).save()
-        s_id =  student.s_id
-        return {'Success' : body}, 200
+        id =  student.s_id
+        return {'id' : str(id)}, 200
     
 class SingleStudent(Resource):
 
@@ -36,7 +36,8 @@ class SingleStudent(Resource):
     @jwt_required
     def delete(self, id):
         student = Students.objects.get(s_id=id).delete()
-        return "Student Deleted Success"
+        return Response("Student Deleted Success", mimetype="applicaiton/json", status=200)
+
 class RegisterApi(Resource):
 
     def post(self):
